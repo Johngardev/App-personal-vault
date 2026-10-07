@@ -1,35 +1,65 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# Personal Vault
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+Personal Vault is a Kotlin Multiplatform app for securely storing personal secrets, notes, and credentials on Android and iOS. The project is built with Compose Multiplatform and uses shared business logic, local persistence, and a simple vault-style workflow.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## Overview
 
-### Build and Run Android Application
+This repository contains a multiplatform mobile application that allows users to:
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+- unlock the vault with a master password
+- create and save secrets
+- view stored items in a dashboard
+- edit or delete saved entries
+- store encrypted data locally
+- run on both Android and iOS targets
 
-### Build and Run iOS Application
+The app is structured as a Kotlin Multiplatform project with a shared Compose UI layer and platform-specific app entry points.
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+## Features
 
----
+- Android + iOS support via Kotlin Multiplatform
+- Shared UI and app logic in the `composeApp` module
+- Local database storage with Room
+- Secret encryption flow using a vault abstraction
+- Dashboard for listing saved secrets
+- Create, update, and delete secret actions
+- Biometric-ready authentication flow
+- Material 3-based user interface
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## Tech Stack
+
+- Kotlin Multiplatform
+- JetBrains Compose Multiplatform
+- Android Jetpack
+- Room database
+- Kotlin Coroutines
+- Multiplatform Settings
+- iOS app wrapper via SwiftUI
+
+## Project Structure
+
+```text
+App-personal-vault/
+├── composeApp/
+│   ├── src/
+│   │   ├── androidMain/
+│   │   ├── commonMain/
+│   │   │   ├── kotlin/
+│   │   │   │   └── com/johngardev/personalvault/
+│   │   │   │       ├── auth/
+│   │   │   │       ├── database/
+│   │   │   │       ├── security/
+│   │   │   │       ├── ui/
+│   │   │   │       └── utilities/
+│   │   ├── commonTest/
+│   │   └── iosMain/
+│   └── build.gradle.kts
+├── iosApp/
+│   └── iosApp/
+├── build.gradle.kts
+├── gradle.properties
+├── gradlew
+├── gradlew.bat
+├── settings.gradle.kts
+├── gradle/
+└── README.md
